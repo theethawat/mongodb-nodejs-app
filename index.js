@@ -7,13 +7,22 @@ const url =
 MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err
   console.log("Hello World!!!   Database Found")
-  var dbo = db.db("theethawatDB")
-  dbo
+  var myDatabase = db.db("theethawatDB")
+  myDatabase
     .collection("family")
     .find({})
     .toArray(function(err, result) {
       if (err) throw err
       console.log(result)
     })
+  myDatabase
+    .collection("family")
+    .insertOne(
+      { name: "Undefine Women", surname: "Savastham", status: "Wife" },
+      function(err, result) {
+        if (err) throw err
+        console.log("document add!")
+      }
+    )
   db.close()
 })
